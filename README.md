@@ -38,7 +38,7 @@ sudo dpkg -i /opt/omd/versions/1.2.6p12.cre/share/check_mk/agents/check-mk-agent
 ```
 
 Now navigate to the web-ui of the checkmk-vagrant box. It will have received an address from your local DHCP server.
-http://<ip>/ies/
+`http://<ip>/ies/`
 
     note: the trailing directory resembling the site's name.
 
