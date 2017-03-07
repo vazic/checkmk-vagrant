@@ -5,14 +5,13 @@ box_url  = 'https://s3.amazonaws.com/easybibdeployment/imagineeasy-ubuntu-14.04.
 box_file = 'imagineeasy-ubuntu-14.04.3_virtualbox-4.3.26r98988_chef-11.10.4_1'
 
 Vagrant.configure(2) do |config|
-  bibconfig = Bib::Vagrant::Config.new
-  vagrantconfig = bibconfig.get
 
   config.vm.box = box_file
   config.vm.box_url = box_url
-  config.vm.hostname = 'checkmk_vagrant'
+  config.vm.hostname = 'checkmk'
 
-  config.vm.network "public_network"
+  config.vm.network "private_network", virtualbox__intnet: "net_mon", ip: "10.10.10.17"
+  config.vm.network "forwarded_port", guest: 80, host: 9080
 
   config.vm.synced_folder "data", "/vagrant_data"
 
@@ -33,7 +32,7 @@ Vagrant.configure(2) do |config|
     echo
     ip=$(ip -o a s eth1 | grep /2 | awk '{print $4}' | cut -d/ -f 1)
     echo "In your browser, go to:"
-    echo " - http://${ip}/ies/"
+    echo " - http://127.0.0.1:9080/ies/"
     echo
     echo "Default credentials are => omdadmin:omd"
     echo
